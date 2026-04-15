@@ -3,7 +3,6 @@ import React, { useState } from "react";
 function App() {
   const [preview, setPreview] = useState(null);
 
-  // 🔥 파일 선택 시 바로 Spring으로 전송
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

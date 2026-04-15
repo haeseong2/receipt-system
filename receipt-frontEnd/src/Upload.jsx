@@ -15,7 +15,7 @@ const Upload = ({ onUpload }) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      onUpload(file, reader.result); // 🔥 file + image 둘 다 전달
+      onUpload(file, reader.result); //  file + image 둘 다 전달
     };
 
     reader.readAsDataURL(file);
