@@ -69,6 +69,7 @@ Database (MySQL)
 - LLM: Ollama (Llama系)  
 - Language: Java, Python  
 - Database: MySQL  
+- IDEA: IntelliJ,  DBeaver, Visual Studio Code, Postman 
 
 ---
 
