@@ -14,6 +14,7 @@ public class OcrService {
 
     public String sendToOcr(File file) {
         try {
+            System.out.println("sendToOcr() 호출");
             String url = "http://localhost:8000/ocr";
 
             RestTemplate restTemplate = new RestTemplate();

@@ -62,13 +62,12 @@ async def ocr(file: UploadFile = File(...)):
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        print("📥 파일 받음:", file_path)
+        print("파일 받음:", file_path)
 
         # OCR 실행
         text = extract_text(file_path)
 
         print("===== OCR TEXT =====")
-        print(text)
 
         # 응답 (Spring으로 돌아감)
         return {

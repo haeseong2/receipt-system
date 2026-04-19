@@ -1,71 +1,57 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "./styles/App.css";
+import ReceiptViewer from "./ReceiptViewer";
 
 function App() {
-  const [preview, setPreview] = useState(null);
+  const [receipts, setReceipts] = useState([]);
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // 미리보기
-    setPreview(URL.createObjectURL(file));
-
-    // 서버 전송
+  const handleUpload = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    try {
-      const res = await fetch("http://localhost:8080/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+    const res = await fetch("http://localhost:8080/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      const text = await res.text();
-      console.log("서버 응답:", text);
+    const text = await res.text();
+    const jsonStart = text.indexOf("{");
+    const jsonEnd = text.lastIndexOf("}") + 1;
+    const data = JSON.parse(text.substring(jsonStart, jsonEnd));
 
-    } catch (err) {
-      console.error("전송 실패:", err);
-      alert("서버 연결 실패");
-    }
+    const newReceipt = {
+      id: Date.now(),
+      imageUrl: URL.createObjectURL(file),
+      data,
+      open: true,
+    };
+
+    setReceipts((prev) => [newReceipt, ...prev]);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) handleUpload(file);
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#f5f5f5",
-      }}
-    >
-      <div
-        style={{
-          width: "500px",
-          padding: "30px",
-          background: "white",
-          borderRadius: "12px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          textAlign: "center",
-        }}
-      >
-        <h2>영수증 파일 업로드</h2>
-
-        <input type="file" onChange={handleFileChange} />
-
-        {preview && (
-          <div style={{ marginTop: "20px" }}>
-            <img
-              src={preview}
-              alt="preview"
-              style={{
-                width: "100%",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
-        )}
+    <div className="app-container">
+      <div className="header">
+        <h1>Receipt AI</h1>
+        <p>영수증 자동 정리 시스템</p>
       </div>
+
+      <div className="upload-card">
+        <label className="upload-box">
+          <input type="file" onChange={handleFileChange} hidden />
+          <div className="upload-text">
+            📸 이미지 업로드
+            <span>클릭해서 영수증 추가</span>
+          </div>
+        </label>
+      </div>
+
+      <ReceiptViewer receipts={receipts} setReceipts={setReceipts} />
     </div>
   );
 }

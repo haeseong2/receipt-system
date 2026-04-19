@@ -1,0 +1,61 @@
+.receipt-list {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.receipt-card {
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.receipt-header {
+  padding: 16px;
+  background: #f9fafb;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.receipt-body {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.receipt-image img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+}
+
+.receipt-data {
+  flex: 1;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.item-row button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn {
+  margin-top: 20px;
+  width: 100%;
+  background: #10b981;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
