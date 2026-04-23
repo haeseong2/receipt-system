@@ -1,0 +1,44 @@
+📌 4. LLM 프롬프트 + JSON 스키마 템플릿.md
+역할
+OCR 결과 → 최종 Receipt Draft JSON을 만들기 위한 핵심 계약
+프론트 / DTO / 엔티티의 기준
+
+언제 쓰나
+LLM 프롬프트 작성
+JSON 스키마 고정할 때
+types/receipt.js, 백엔드 DTO 설계 시
+
+✅ LLM 시스템 프롬프트 템플릿
+너는 영수증 데이터를 정규화하는 AI다.
+입력으로 주어지는 데이터는 OCR 결과로,
+후보값과 신뢰도가 포함된 구조화된 텍스트이다.
+
+너의 역할은
+- 가장 합리적인 값을 선택하고
+- 아래 JSON 스키마에 맞춰 결과를 생성하는 것이다.
+
+추측이 필요한 경우
+- confidence가 높은 값을 우선 사용한다.
+- 불확실하면 일반적인 영수증 관례를 따른다.
+{
+  "storeName": "string",
+  "transactionDate": "YYYY-MM-DD",
+  "totalAmount": number,
+  "currency": "KRW | JPY | USD",
+  "paymentMethod": "CARD | CASH | QR | OTHER",
+  "items": [
+    {
+      "name": "string",
+      "quantity": number,
+      "price": number
+    }
+  ],
+  "ocrConfidence": number
+}
+✅ 이 파일의 핵심 선언
+이 JSON은
+- OCR 결과가 아님
+- DB 저장 데이터도 아님
+
+사용자 확인 전 단계인
+**Receipt Draft 데이터**다.

@@ -1,0 +1,87 @@
+Backend (Spring Boot) 파일 구조
+책임: OCR/LLM 파이프라인 통제 + (나중에) DB 저장
+receipt-backend/
+├─ controller/
+│  ├─ OcrController/
+│  └─ ReceiptController/
+│
+├─ service/
+│  ├─ ocr/
+│  │  └─ OcrPipelineService/     # OCR → LLM 흐름
+│  │
+│  ├─ llm/
+│  │  └─ LlmJsonService/         # OCR 결과 → JSON 생성
+│  │
+│  └─ receipt/
+│     └─ ReceiptService/         # 저장/조회 (나중)
+│
+├─ client/
+│  ├─ OcrClient/                # Python OCR 호출
+│  └─ LlmClient/                # LLM API 호출
+│
+├─ dto/
+│  ├─ ocr/                      # OCR 결과 계약 (지금은 비워둬도 OK)
+│  ├─ receipt/                  # LLM JSON 계약
+│  └─ common/
+│
+├─ domain/                     # ✅ 엔티티 (폴더만)
+│  ├─ receipt/
+│  │  ├─ Receipt/
+│  │  └─ ReceiptItem/
+│  └─ user/
+│
+├─ repository/                 # DB 접근 (폴더만)
+├─ mapper/                     # DTO ↔ Entity (나중)
+├─ config/
+│  ├─ WebConfig/
+│  ├─ OcrClientConfig/
+│  └─ LlmConfig/
+│
+└─ ReceiptApplication.java
+✅ Entity는 DTO를 모른다
+✅ DTO는 DB를 모른다
+✅ Service만 양쪽을 안다
+
+📌 2. 백엔드용 AI 요청 템플릿 모음.md
+역할
+Spring Boot Controller / Service / Client 구현 보조용
+“흐름”과 “역할”을 어기지 않게 AI를 제어하기 위한 템플릿
+
+언제 쓰나
+OcrPipelineService 흐름 짤 때
+외부 API(OCR/LLM) 호출 코드 필요할 때
+저장 로직 구현 전 단계
+
+✅ Service 요청 템플릿
+너는 Spring Boot 백엔드 개발자다.
+[클래스 역할]
+- 이 서비스는 OCR → LLM 파이프라인의 흐름만 제어한다.
+- 직접 OCR 처리하거나 DB에 접근하지 않는다.
+
+[입력]
+- MultipartFile image
+
+[출력]
+- LLM이 생성한 Receipt Draft JSON
+
+[제약 조건]
+- Entity 접근 금지
+- Repository 사용 금지
+- 한 responsibility만 유지
+
+[요청]
+- 이 서비스의 메서드 흐름을 코드 또는 의사코드로 작성해줘
+
+✅ Client 요청 템플릿 (외부 서버 호출)
+너는 Spring에서 외부 서버를 호출하는 Client 클래스를 작성한다.
+
+[역할]
+- OCR 서버에 multipart 이미지 전송
+- JSON 응답 수신
+
+[제약]
+- 비즈니스 로직 포함 금지
+- URL, timeout은 설정값으로 분리
+
+[요청]
+- RestTemplate 또는 WebClient 기반 예시 코드 작성

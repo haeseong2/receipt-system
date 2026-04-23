@@ -1,0 +1,33 @@
+추출 및 관리 대상 데이터
+✅ 영수증 헤더
+상점명 (storeName)
+거래일자 (transactionDate)
+총 금액 (totalAmount)
+통화 (currency)
+결제 방식 (paymentMethod)
+
+✅ 상품 아이템
+items
+상품명 (name)
+수량 (quantity)
+가격 (price)
+
+✅ OCR 품질 정보
+ocrConfidence (OCR 신뢰도 판단용)
+
+LLM이 만들어야 할 JSON (Draft 기준)
+{
+  "storeName": "string",
+  "transactionDate": "YYYY-MM-DD",
+  "totalAmount": number,
+  "currency": "KRW | JPY | USD",
+  "paymentMethod": "CARD | CASH | QR | OTHER",
+  "items": [
+    {
+      "name": "string",
+      "quantity": number,
+      "price": number
+    }
+  ],
+  "ocrConfidence": number
+}

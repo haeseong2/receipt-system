@@ -1,0 +1,7 @@
+최상위 프로젝트 구조 (Monorepo)
+receipt-project/
+├─ receipt-frontend/      # React SPA
+├─ receipt-backend/       # Spring Boot API
+├─ receipt-ocr/           # Python + PaddleOCR
+├─ docs/                  # 설계 / 포트폴리오 문서
+└─ README.md

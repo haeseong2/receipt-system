@@ -1,0 +1,101 @@
+Frontend (React SPA) 파일 구조
+책임: 보여주기 / 수정 / 등록 요청
+
+receipt-frontend/
+├─ public/
+│
+├─ src/
+│  ├─ pages/                    # 📌 라우팅 단위
+│  │  ├─ ReceiptUploadPage/     # Page 1
+│  │  │  └─ index.jsx
+│  │  │
+│  │  └─ ReceiptHistoryPage/    # Page 2
+│  │     └─ index.jsx
+│  │
+│  ├─ components/               # 📌 역할 단위 UI 조각
+│  │  ├─ upload/
+│  │  │  └─ ImageUploader.jsx
+│  │  │
+│  │  ├─ receipt/
+│  │  │  ├─ ReceiptImagePreview.jsx
+│  │  │  ├─ ReceiptForm.jsx
+│  │  │  └─ ItemTable.jsx
+│  │  │
+│  │  ├─ history/
+│  │  │  ├─ ReceiptList.jsx
+│  │  │  └─ DateFilter.jsx
+│  │  │
+│  │  └─ common/
+│  │     ├─ Button.jsx
+│  │     └─ Loading.jsx
+│  │
+│  ├─ api/                      # 백엔드 통신
+│  │  ├─ ocrApi.js
+│  │  └─ receiptApi.js
+│  │
+│  ├─ types/                    # LLM JSON 구조 기준
+│  │  └─ receipt.js
+│  │
+│  ├─ styles/
+│  └─ App.jsx
+│
+├─ index.html
+├─ package.json
+└─ vite.config.js
+
+✅ 프론트 판단 로직 ❌
+✅ 받은 JSON 그대로 표시 + 수정만 ✅
+
+📌 1. 프론트용 AI 요청 템플릿 모음.md
+역할
+React 컴포넌트 / 페이지 구현을 AI에게 맡길 때 쓰는 템플릿
+설계는 네가 하고, 구현만 정확히 뽑기 위한 문서
+
+언제 쓰나
+컴포넌트 하나 만들 때
+페이지 흐름 코드만 필요할 때
+“이 컴포넌트는 이 일만 한다”고 AI에게 명확히 말하고 싶을 때
+
+✅ 기본 컴포넌트 요청 템플릿
+너는 React 프론트엔드 개발자다.
+
+[프로젝트 맥락]
+- OCR + LLM 기반 영수증 등록 시스템
+- 현재 프론트 구조와 페이지 설계는 확정된 상태다.
+
+[이 컴포넌트의 역할]
+- 이 컴포넌트는 [단일 역할]만 수행한다.
+- OCR, API 호출, 전역 상태 관리 등은 하지 않는다.
+
+[입력(props)]
+- 입력 데이터 구조:
+  - 예: items: [{ name, quantity, price }]
+  - 예: onChangeItems(updatedItems)
+
+[출력/동작]
+- 사용자의 조작 결과를 부모로 전달해야 한다.
+
+[제약 조건]
+- 디자인은 최소
+- 외부 라이브러리 추가 금지
+- 한 파일 기준으로 작성
+
+[요청]
+- 위 조건을 만족하는 React 컴포넌트를 작성해줘
+
+✅ 페이지(흐름만) 요청 템플릿
+너는 React 페이지 구조를 설계한다.
+
+[페이지 역할]
+- 이 페이지는 영수증 등록 전체 흐름을 담당한다.
+
+[페이지 흐름]
+1. ImageUploader
+2. OCR + LLM 결과(state로 이미 존재한다고 가정)
+3. ReceiptForm / ItemTable 표시
+4. 등록 버튼 클릭
+
+[요청]
+- 컴포넌트 조합과 상태 흐름 중심으로 코드 예시를 만들어줘
+- 세부 UI 구현은 생략해도 된다
+

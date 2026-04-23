@@ -1,0 +1,52 @@
+[Frontend]
+  │  (multipart image)
+  ▼
+[OcrController]
+  │
+  │ 호출
+  ▼
+[OcrPipelineService]  ────────────── 핵심 흐름 ──────────────
+  │
+  │ 1. 이미지 수신
+  │
+  │ 2. OCR 서버 호출
+  ▼
+[OcrClient]
+  │
+  │  (이미지 파일 전달)
+  ▼
+[OCR Server (PaddleOCR)]
+  │
+  │  - temp 이미지 저장
+  │  - OCR 실행
+  │  - 텍스트 조리 (후보/라인/숫자)
+  │  - 결과 파일: storage/result/*.json
+  │
+  ▼
+[OcrClient]
+  │
+  │  (조리된 OCR 텍스트 데이터 결과)
+  ▼
+[OcrPipelineService]
+  │
+  │ 3. LLM 호출
+  ▼
+[LlmJsonService]
+  │
+  │  (OCR 결과 기반 의미 추론)
+  ▼
+[LLM]
+  │
+  │  (Receipt Draft JSON)
+  ▼
+[LlmJsonService]
+  │
+  ▼
+[OcrPipelineService]
+  │
+  │ 4. Draft 결과 반환
+  ▼
+[OcrController]
+  │
+  ▼
+[Frontend]

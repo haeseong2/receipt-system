@@ -1,0 +1,8 @@
+docs/
+├─ architecture/
+│  └─ pipeline-diagram.png
+├─ decisions/
+│  ├─ scope-definition.md        # "여기까지만 뽑는다"
+│  ├─ why-paddle-ocr.md
+│  └─ why-llm-parsing.md
+└─ portfolio.md

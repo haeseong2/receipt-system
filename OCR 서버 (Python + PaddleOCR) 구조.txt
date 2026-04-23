@@ -1,0 +1,77 @@
+OCR 서버 (Python + PaddleOCR) 구조
+책임: 영수증 이미지 → 조리된 구조 데이터 추출
+receipt-ocr/
+├─ app/
+│  ├─ main.py                  # ✅ API 엔트리
+│  │
+│  ├─ ocr/                     # OCR 실행 영역
+│  │  ├─ paddle_engine.py      # PaddleOCR 실행
+│  │  └─ preprocess.py         # 이미지 전처리
+│  │
+│  ├─ extract/                 # 영수증 조리 영역
+│  │  ├─ receipt_extractor.py  # 상점/날짜/금액 후보
+│  │  └─ item_extractor.py     # 상품 name/qty/price
+│  │
+│  ├─ schema/
+│  │  └─ ocr_result.py         # Spring으로 보낼 결과 구조
+│  │
+│  └─ utils/
+│     └─ file_utils.py         # temp/result 파일 처리
+│
+├─ storage/
+│  ├─ temp/                    # ✅ 받은 이미지 임시 저장
+│  │  └─ 20250401_xxx.jpg
+│  │
+│  └─ result/                  # ✅ OCR 최종 결과 저장
+│     └─ 20250401_xxx.json
+│
+├─ requirements.txt
+└─ Dockerfile
+
+✅ OCR은 조리까지는 함
+✅ 최종 JSON 확정 ❌
+✅ DB 몰라야 함
+
+📌 3. OCR 전용 프롬프트 세트.md
+역할
+OCR(PaddleOCR) 단계에서 “조리된 구조 텍스트”를 만들기 위한 기준
+LLM 이전 단계의 중간 계약 데이터 정의
+
+언제 쓰나
+OCR 출력 구조를 통일할 때
+result 파일(storage/result/*.json) 설계할 때
+
+✅ OCR 단계 목표 선언문 (고정 문구)
+OCR 단계의 목표는
+- 영수증 이미지를 텍스트로 변환하고
+- 영수증 도메인 기준으로 구조화된 텍스트 재료를 만드는 것이다.
+
+이 단계에서는
+- 최종 의미 판단을 하지 않는다.
+- JSON 스키마를 확정하지 않는다.
+- DB 저장을 고려하지 않는다.
+
+✅ OCR 출력 구조 예시(개념)
+  "store": {
+    "candidates": ["GS25", "GS-25"],
+    "confidence": 0.96
+  },
+  "transactionDate": {
+    "candidates": ["2025-04-01", "2025/4/1"],
+    "confidence": 0.91
+  },
+  "totalAmount": {
+    "candidates": [5500, 5580],
+    "confidence": 0.87
+  },
+  "items": [
+    {
+      "rawLine": "콜라 2 3000",
+      "name": "콜라",
+      "quantity": 2,
+      "price": 3000
+    }
+  ],
+  "ocrConfidence": 0.93
+}
+✅ 이 구조 그대로 LLM 입력으로 사용
