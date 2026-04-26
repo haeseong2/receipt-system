@@ -1,0 +1,8 @@
+export default function Loading() {
+  return (
+    <div className="loading-overlay">
+      <div className="spinner"></div>
+      <p>AI 분석중...</p>
+    </div>
+  );
+}

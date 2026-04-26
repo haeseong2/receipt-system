@@ -1,0 +1,93 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  background: #f5f6f8;
+  font-family: sans-serif;
+}
+
+/* sidebar */
+.sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 20px;
+  border-right: 1px solid #eee;
+}
+
+.sidebar .logo {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar li.active {
+  background: #f0f4ff;
+  color: #3b5bdb;
+}
+
+/* main */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.card .amount {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* content */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* list */
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}

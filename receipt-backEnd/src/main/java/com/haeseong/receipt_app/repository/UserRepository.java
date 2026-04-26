@@ -1,8 +1,14 @@
 package com.haeseong.receipt_app.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import com.haeseong.receipt_app.entity.User;
+import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {}
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.haeseong.receipt_app.domain.user.User;
+
+public interface UserRepository
+        extends JpaRepository<User,Long>{
+
+    Optional<User> findByLoginId(String loginId);
+
+}
