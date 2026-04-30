@@ -1,93 +1,99 @@
-.layout {
+.dashboard {
   display: flex;
   height: 100vh;
-  background: #f5f6f8;
-  font-family: sans-serif;
+  background: #f8fafc;
 }
 
-/* sidebar */
-.sidebar {
-  width: 220px;
-  background: #fff;
-  padding: 20px;
-  border-right: 1px solid #eee;
-}
-
-.sidebar .logo {
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.sidebar li.active {
-  background: #f0f4ff;
-  color: #3b5bdb;
-}
-
-/* main */
+/* 메인 */
 .main {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
+  margin-left: 230px;
 }
 
-/* header */
-.header {
+/* 상단 */
+.top {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-/* cards */
+.date {
+  background: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+/* 카드 */
 .cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
 }
 
 .card {
+  flex: 1;
   background: white;
-  padding: 15px;
-  border-radius: 12px;
+  padding: 20px;
+  border-radius: 15px;
 }
 
-.card .amount {
-  font-size: 20px;
-  font-weight: bold;
+.up { color: red; }
+.down { color: green; }
+
+/* 하단 */
+.bottom {
+  display: flex;
+  gap: 20px;
 }
 
-/* content */
-.content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.panel {
+.box {
+  flex: 1;
   background: white;
-  padding: 15px;
-  border-radius: 12px;
+  padding: 20px;
+  border-radius: 15px;
 }
 
-/* list */
-.list {
-  list-style: none;
-  padding: 0;
+.chart-wrap {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-.list li {
+.donut {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #22c55e 0% 56%,
+    #3b82f6 56% 78%,
+    #facc15 78% 100%
+  );
+}
+
+.legend div {
+  margin-bottom: 10px;
+}
+
+.green, .blue, .yellow {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.green { background:#22c55e; }
+.blue { background:#3b82f6; }
+.yellow { background:#facc15; }
+
+.box-header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.receipt {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }

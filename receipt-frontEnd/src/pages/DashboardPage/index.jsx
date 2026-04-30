@@ -1,90 +1,102 @@
 import React from "react";
 import "./style.css";
 
-function Header() {
+function DashboardPage() {
   return (
-    <div className="header">
-      <h2>안녕하세요! 오늘도 지출 관리 화이팅 💪</h2>
-      <div className="date">2026.04.01 - 2026.04.18</div>
-    </div>
-  );
-}
+    <div className="dashboard">
 
-/* =========================
-   STAT CARD
-========================= */
-function StatCard({ title, amount, rate }) {
-  return (
-    <div className="card">
-      <div className="title">{title}</div>
-      <div className="amount">{amount}</div>
-      <div className="rate">지난 달 대비 {rate}</div>
-    </div>
-  );
-}
+      {/* 메인 */}
+      <div className="main">
 
-/* =========================
-   CATEGORY CHART
-========================= */
-function CategoryDonut() {
-  return (
-    <div className="panel">
-      <h3>카테고리별 지출 비율</h3>
+        {/* 상단 */}
+        <div className="top">
+          <h2>안녕하세요! 오늘도 지출 관리 화이팅 💪</h2>
+          <div className="date">2026.04.01 - 2026.04.18</div>
+        </div>
 
-      <div className="donut-placeholder">
-        {/* 추후 Recharts or SVG 적용 */}
-        <div>DONUT CHART</div>
-      </div>
+        {/* 카드 */}
+        <div className="cards">
+          <div className="card">
+            <p>이번 달 지출</p>
+            <h3>₩320,000</h3>
+            <span className="up">▲ 12.5%</span>
+          </div>
 
-      <div className="legend">
-        <span>🟢 56.3%</span>
-        <span>🔵 21.9%</span>
-        <span>🟣 21.9%</span>
-      </div>
-    </div>
-  );
-}
+          <div className="card">
+            <p>식비</p>
+            <h3>₩180,000</h3>
+            <span className="up">▲ 8.5%</span>
+          </div>
 
-/* =========================
-   RECENT RECEIPTS
-========================= */
-function RecentReceipts() {
-  const data = [
-    { name: "떡볶이 김밥집", date: "2026-04-18", price: "₩12,800" },
-    { name: "스타벅스", date: "2026-04-17", price: "₩6,500" },
-    { name: "서울교통공사", date: "2026-04-16", price: "₩1,400" },
-    { name: "이마트24", date: "2026-04-15", price: "₩4,200" },
-  ];
+          <div className="card">
+            <p>교통비</p>
+            <h3>₩70,000</h3>
+            <span className="down">▼ 3.2%</span>
+          </div>
 
-  return (
-    <div className="panel">
-      <div className="panel-header">
-        <h3>최근 지출</h3>
-        <button>더보기</button>
-      </div>
+          <div className="card">
+            <p>기타</p>
+            <h3>₩70,000</h3>
+            <span className="up">▲ 25.1%</span>
+          </div>
+        </div>
 
-      <ul className="list">
-        {data.map((item, i) => (
-          <li key={i}>
-            <div>
-              <div className="name">{item.name}</div>
-              <div className="date">{item.date}</div>
+        {/* 하단 */}
+        <div className="bottom">
+
+          {/* 도넛 */}
+          <div className="box">
+            <h4>카테고리별 지출 비율</h4>
+
+            <div className="chart-wrap">
+              <div className="donut"></div>
+
+              <div className="legend">
+                <div><span className="green"></span> 56.3%</div>
+                <div><span className="blue"></span> 21.9%</div>
+                <div><span className="yellow"></span> 21.9%</div>
+              </div>
             </div>
-            <div className="price">{item.price}</div>
-          </li>
-        ))}
-      </ul>
+          </div>
+
+          {/* 리스트 */}
+          <div className="box">
+            <div className="box-header">
+              <h4>최근 영수증</h4>
+              <span className="more">더보기 ›</span>
+            </div>
+
+            <div className="receipt">
+              <span>🍴 맥도날드 강남점</span>
+              <span>2026-04-18</span>
+              <strong>₩12,800</strong>
+            </div>
+
+            <div className="receipt">
+              <span>🍴 스타벅스 역삼점</span>
+              <span>2026-04-17</span>
+              <strong>₩6,500</strong>
+            </div>
+
+            <div className="receipt">
+              <span>🚇 서울교통공사</span>
+              <span>2026-04-16</span>
+              <strong>₩1,400</strong>
+            </div>
+
+            <div className="receipt">
+              <span>🛒 이마트24 강남점</span>
+              <span>2026-04-15</span>
+              <strong>₩4,200</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
     </div>
   );
 }
 
-export default function DashboardPage() {
-  return (
-    <div>
-      <Header />
-      <StatCard title="이번 달 지출" amount="₩1,200,000" rate="+12%" />
-      <CategoryDonut />
-      <RecentReceipts />
-    </div>
-  );
-}
+export default DashboardPage;

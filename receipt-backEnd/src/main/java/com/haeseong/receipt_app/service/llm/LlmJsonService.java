@@ -11,7 +11,6 @@ public class LlmJsonService {
     public LlmJsonService(LlmClient llmClient) {
         this.llmClient = llmClient;
     }
-
     public String generateJson(String ocrText) {
         return llmClient.requestLlm(ocrText);
     }

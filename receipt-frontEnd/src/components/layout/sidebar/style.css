@@ -1,0 +1,117 @@
+.sidebar {
+  width: 230px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background: #ffffff;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #eee;
+}
+
+/* 로고 */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-text p {
+  font-size: 11px;
+  margin: 0;
+  color: #6b7280;
+}
+
+.logo-text strong {
+  font-size: 15px;
+  color: #111827;
+}
+
+/* 메뉴 */
+.menu {
+  list-style: none;
+  padding: 0;
+  flex: 1;
+}
+
+.menu li {
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: 0.2s;
+
+  color: #374151;
+}
+
+.menu li:hover {
+  background: #f1f5ff;
+}
+
+.menu li.active {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+/* 👤 유저 카드 (요즘 스타일) */
+.user-chip {
+  margin-top: auto;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+
+  color: #1d4ed8;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.user-chip:hover {
+  background: #dbeafe;
+}
+
+/* ↩ 로그아웃 */
+.logout {
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  background: #f9fafb;
+  border: 1px solid #eee;
+
+  text-align: center;
+  font-weight: 500;
+
+  transition: 0.2s;
+}
+
+.logout:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}

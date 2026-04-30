@@ -1,6 +1,6 @@
 package com.haeseong.receipt_app.service.user;
 
-import com.haeseong.receipt_app.domain.user.User;
+import com.haeseong.receipt_app.domain.User;
 import com.haeseong.receipt_app.dto.user.LoginRequest;
 import com.haeseong.receipt_app.repository.UserRepository;
 
@@ -16,9 +16,6 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
 
     public User login(LoginRequest request){
-
-        System.out.println("입력 비번 : " + request.getPassword());
-
         User user = userRepository.findByLoginId(request.getLoginId()).orElseThrow(()
                 -> new RuntimeException("USER_NOT_FOUND"));
         System.out.println("DB 해시 : " + user.getPasswordHash());

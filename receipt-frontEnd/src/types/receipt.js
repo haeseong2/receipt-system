@@ -4,6 +4,5 @@ export const emptyReceipt = {
   totalAmount: 0,
   currency: "JPY",
   paymentMethod: "",
-  items: [],
   ocrConfidence: 0,
 };

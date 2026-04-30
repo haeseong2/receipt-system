@@ -26,17 +26,13 @@ public class OcrPipelineService {
      */
     public String process(File file) {
         try {
-            // =====================================================
             // OCR 서버 호출
-            // =====================================================
             String ocrResult = ocrClient.requestOcr(file);
 
             // 디버깅 로그 (문제 생기면 여기 보면 됨)
             System.out.println("OCR RAW: " + ocrResult);
 
-            // =====================================================
             // OCR 응답 JSON 파싱
-            // =====================================================
             JsonNode root = mapper.readTree(ocrResult);
 
             boolean success = root.has("success") && root.get("success").asBoolean();
@@ -48,15 +44,12 @@ public class OcrPipelineService {
                 text = root.get("text").asText();
             }
 
-            // =====================================================
             // OCR 결과 검증
-            // =====================================================
             if (!success || text.isBlank()) {
                 throw new RuntimeException("OCR 결과 없음");
             }
-            // =====================================================
+
             // LLM 호출 (JSON 생성)
-            // =====================================================
             String llmResult = llmService.generateJson(text);
             System.out.println("LLM RESULT: " + llmResult);
 

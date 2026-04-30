@@ -1,0 +1,17 @@
+storeName:
+Www.Tobu -u
+
+transactionDate:
+2026-04-18
+
+totalAmount:
+93060
+
+currency:
+JPY
+
+itemCount:
+2
+
+ocrConfidence:
+0.93

@@ -2,12 +2,11 @@ from paddleocr import PaddleOCR
 
 ocr = PaddleOCR(
     lang="japan",
-    use_angle_cls=True,     # 다시 켠다
+    use_angle_cls=True,     
     det_db_box_thresh=0.45,
     det_db_thresh=0.25,
     drop_score=0.15
 )
-
 
 def run_ocr(image):
 

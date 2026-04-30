@@ -1,15 +1,12 @@
 def build_prompt_text(
-store,
-date,
-total,
-currency,
-payment,
-items,
-ocr_confidence,
-item_count
+    store,
+    date,
+    total,
+    currency,
+    confidence,
+    item_count
 ):
-
-    txt=f"""
+    return f"""
 storeName:
 {store}
 
@@ -22,27 +19,9 @@ totalAmount:
 currency:
 {currency}
 
-paymentMethod:
-{payment}
-
 itemCount:
 {item_count}
 
-items:
-"""
-
-    for i in items:
-        txt+=f"""
-
-- name:{i['name']}
-  quantity:{i['quantity']}
-  price:{i['price']}
-"""
-
-    txt+=f"""
-
 ocrConfidence:
-{ocr_confidence}
-"""
-
-    return txt
+{confidence}
+""".strip()

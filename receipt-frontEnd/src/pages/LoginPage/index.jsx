@@ -33,21 +33,15 @@ function LoginPage() {
 
     try{
       setLoading(true);
-      const result=await login(form);
+      const result = await login(form);
       console.log(result);
+      
+      sessionStorage.setItem("LOGIN_USER", result.userName);
 
-      alert(
-        `${result.userName} 로그인 성공`
-      );
-
-      // 추후 페이지 이동
       navigate("/dashboard");
     }catch(err){
       console.error(err);
-
-      setError(
-        "로그인 실패"
-      );
+      setError("로그인 실패");
     }finally{
       setLoading(false);
     }
@@ -131,16 +125,13 @@ function LoginPage() {
           </h2>
 
           <form onSubmit={onSubmit}>
-
             <div className="input-box">
               <span>👤</span>
-
-              <input name="loginId"value={form.loginId}onChange={onChange}placeholder="Email"/>
+              <input name="loginId"value={form.loginId} onChange={onChange} placeholder="Email"/>
             </div>
 
             <div className="input-box">
               <span>🔒</span>
-
               <input type="password"name="password"value={form.password}onChange={onChange}placeholder="Password"/>
             </div>
 
@@ -149,27 +140,18 @@ function LoginPage() {
                 {error}
               </p>
             }
-
-            <button
-              className="login-btn"
-              type="submit"
-              disabled={loading}
-            >
+            <button className="login-btn" type="submit" disabled={loading}>
               {
                 loading
                 ? "LOGINING..."
                 : "LOGIN"
               }
             </button>
-
           </form>
 
         </div>
-
         <div className="card-base"></div>
-
       </div>
-
     </div>
   );
 }

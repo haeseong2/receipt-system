@@ -31,14 +31,10 @@ public class OcrClient {
                 }
             });
 
-            HttpEntity<MultiValueMap<String, Object>> request =
-                    new HttpEntity<>(body, headers);
-
-            ResponseEntity<String> response =
-                    restTemplate.postForEntity(url, request, String.class);
+            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(body, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
             return response.getBody();
-
         } catch (Exception e) {
             throw new RuntimeException("OCR 요청 실패", e);
         }

@@ -1,6 +1,6 @@
 package com.haeseong.receipt_app.controller.user;
 
-import com.haeseong.receipt_app.domain.user.User;
+import com.haeseong.receipt_app.domain.User;
 import com.haeseong.receipt_app.dto.user.LoginRequest;
 import com.haeseong.receipt_app.dto.user.LoginResponse;
 import com.haeseong.receipt_app.service.user.LoginService;
@@ -29,4 +29,20 @@ public class LoginController {
 
         return new LoginResponse("SUCCESS",user.getUserName());
     }
+
+    @PostMapping("/logout")
+    public void logout(HttpSession session){
+        session.invalidate();
+    }
+
+    @GetMapping("/session-check")
+    public String sessionCheck(HttpSession session){
+        Object user=session.getAttribute(LOGIN_USER);
+        if(user==null){
+            throw new RuntimeException("unauthorized");
+        }
+        return "OK";
+    }
+
+
 }

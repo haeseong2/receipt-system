@@ -1,9 +1,8 @@
 import cv2
 
 def preprocess(image):
-
     h,w=image.shape[:2]
-
+    
     if max(h,w)>2200:
         r=2200/max(h,w)
         image=cv2.resize(

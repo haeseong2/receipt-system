@@ -1,0 +1,13 @@
+.layout{
+  display:flex;
+  height:100vh;
+}
+
+.main-area{
+  flex:1;
+  overflow:auto; /* 그냥 여기서 스크롤 */
+}
+
+.content{
+  padding:30px;
+}
