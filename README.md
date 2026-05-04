@@ -38,7 +38,7 @@ STT: Whisper (planned)
 
 ## ⚙️ Architecture
 
-React (Frontend)  
+Client React (Frontend)  
 ↓  
 Spring Boot (API Server)  
 ↓  
