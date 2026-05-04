@@ -39,7 +39,6 @@ AI Model: Ollama (Llama3)
 Database: MySQL  
 
 Infrastructure: Docker / Docker Compose  
-CI/CD: GitHub Actions  
 Monitoring: Prometheus, Grafana  
 STT: Whisper (planned)
 
@@ -72,12 +71,6 @@ Database (MySQL)
 - LLMによる支出データ構造化（JSON変換）
 - ユーザー修正UI
 - データ保存・履歴管理
-
----
-
-## 🔄 CI/CD
-
-GitHub Push → GitHub Actions → Docker Build → Auto Deploy
 
 ---
 
