@@ -30,7 +30,7 @@ def preprocess(image):
 
     _,th=cv2.threshold(
         blur,
-        0,
+        150,
         255,
         cv2.THRESH_BINARY+cv2.THRESH_OTSU
     )

@@ -5,6 +5,7 @@ import com.haeseong.receipt_app.dto.user.LoginRequest;
 import com.haeseong.receipt_app.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class LoginService {
         User user = userRepository.findByLoginId(request.getLoginId()).orElseThrow(()
                 -> new RuntimeException("USER_NOT_FOUND"));
         System.out.println("DB 해시 : " + user.getPasswordHash());
+
+        System.out.println(new BCryptPasswordEncoder().encode("cjstjd123!"));
+        System.out.println(new BCryptPasswordEncoder().encode("admin!"));
+        System.out.println(new BCryptPasswordEncoder().encode("wodusWkd9!"));
 
         boolean match = passwordEncoder.matches(request.getPassword(),user.getPasswordHash());
         System.out.println("비교결과 : " + match);

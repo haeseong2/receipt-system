@@ -1,0 +1,5 @@
+import api from "./commonApi";
+
+export const updateReceipt = (data) => {
+  return api.put(`/receipts/${data.receiptId}`, data);
+};

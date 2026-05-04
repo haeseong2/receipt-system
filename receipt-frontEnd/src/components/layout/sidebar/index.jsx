@@ -46,30 +46,26 @@ function Sidebar() {
       {/* 메뉴 */}
       <ul className="menu">
         <li className={location.pathname === "/dashboard" ? "active" : ""} onClick={() => go("/dashboard")}>
-          🏠 대시보드
+          🏠 ダッシュボード
         </li>
 
         <li className={location.pathname === "/receiptUpload" ? "active" : ""} onClick={() => go("/receiptUpload")}>
-          🧾 영수증 등록
+          🧾 アップロード
         </li>
 
         <li className={location.pathname === "/receiptList" ? "active" : ""} onClick={() => go("/receiptList")}>
-          📋 영수증 목록
-        </li>
-
-        <li>
-          📊 통계
+          📋 領収書管理
         </li>
       </ul>
 
       {/* 유저 */}
       <div className="user-chip">
-        👤{userName ? userName : "Guest"}님
+        👤{userName ? userName : "Guest"}さん
       </div>
 
       {/* 로그아웃 */}
       <div className="logout" onClick={handleLogout}>
-        ↩ 로그아웃
+        ↩ ログアウト
       </div>
     </div>
   );

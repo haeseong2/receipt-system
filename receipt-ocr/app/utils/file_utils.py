@@ -1,8 +1,13 @@
 import os
 from datetime import datetime
 
-TEMP_DIR = "storage/temp"
-RESULT_DIR = "storage/result"
+# 개발 
+#TEMP_DIR = "storage/temp"   
+#RESULT_DIR = "storage/result"
+
+# 운영
+TEMP_DIR = "/app/storage/temp"
+RESULT_DIR = "/app/storage/OCR_result"
 
 os.makedirs(
     TEMP_DIR,

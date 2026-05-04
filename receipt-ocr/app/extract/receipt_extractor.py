@@ -1,138 +1,153 @@
 import re
 
+# =========================
+# 가맹점
+# =========================
+def extract_store(lines, scores):
+    candidates = []
 
-def extract_store(lines,scores):
+    for t in lines[:10]:
+        t = t.strip()
 
-    candidates=[]
-
-    for t in lines[:8]:
-
-        if len(t)<3:
+        if len(t) < 3:
             continue
 
-        if re.search(r'\d',t):
+        if re.search(r'\d', t):
             continue
 
-        if "領収" in t:
+        if any(k in t for k in ["領収", "レシート", "TEL", "電話"]):
             continue
 
         candidates.append(t)
 
     if candidates:
-        return max(candidates,key=len),0.95
+        return max(candidates, key=len), 0.9
 
-    return "UNKNOWN",0.50
+    return "UNKNOWN", 0.5
 
 
+# =========================
+# 날짜
+# =========================
+def extract_date(lines, scores):
+    txt = " ".join(lines)
 
-def extract_date(lines,scores):
-
-    txt=" ".join(lines)
-
-    patterns=[
+    patterns = [
         r'(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日',
         r'(\d{4})/(\d{1,2})/(\d{1,2})',
         r'(\d{4})-(\d{1,2})-(\d{1,2})'
     ]
 
     for pat in patterns:
-
-        m=re.search(pat,txt)
-
+        m = re.search(pat, txt)
         if m:
-            y,mn,d=m.groups()
+            y, mth, d = m.groups()
+            return f"{y}-{int(mth):02d}-{int(d):02d}", 0.95
 
-            return (
-                f"{y}-{int(mn):02d}-{int(d):02d}",
-                0.95
-            )
-
-    return "",0.50
+    return "", 0.5
 
 
+# =========================
+# 금액 파싱
+# =========================
+def parse_money(text):
+    text = text.replace(",", "").replace("¥", "").replace("円", "")
+    nums = re.findall(r'\d+', text)
 
-def extract_total(lines,scores):
+    vals = []
+    for n in nums:
+        v = int(n)
+        if 50 <= v <= 200000:  # 현실 범위
+            vals.append(v)
 
-    keywords=[
+    return vals
+
+
+# =========================
+# 총금액 (핵심 개선)
+# =========================
+def extract_total(lines, scores):
+
+    PRIORITY_KEYWORDS = [
         "合計",
-        "お買上計",
-        "総計",
+        "お買上",
+        "ご請求",
         "請求額",
-        "小計"
+        "総合計"
     ]
 
-    # 1순위 키워드 주변 탐색
-    for i,t in enumerate(lines):
+    IGNORE_KEYWORDS = [
+        "お釣",
+        "おつり",
+        "釣銭",
+        "現金",
+        "カード"
+    ]
 
-        if any(k in t for k in keywords):
+    candidates = []
 
-            vals=[]
+    for i, t in enumerate(lines):
 
-            for j in range(
-                i,
-                min(i+5,len(lines))
-            ):
+        # 제외 키워드
+        if any(k in t for k in IGNORE_KEYWORDS):
+            continue
 
-                nums=re.findall(
-                    r'\d+',
-                    lines[j].replace(",","")
-                )
+        # 합계 키워드 발견
+        if any(k in t for k in PRIORITY_KEYWORDS):
 
-                for n in nums:
+            # 주변 7줄까지 넓힘
+            for j in range(max(0, i - 2), min(len(lines), i + 6)):
 
-                    v=int(n)
+                vals = parse_money(lines[j])
 
-                    if 100<=v<=99999:
-                        vals.append(v)
+                for v in vals:
+                    candidates.append((v, 1.0))  # 높은 점수
 
-            if vals:
-                return max(vals),0.97
+    # fallback (전체에서 찾기)
+    if not candidates:
+        for t in lines:
+            if any(k in t for k in IGNORE_KEYWORDS):
+                continue
 
+            vals = parse_money(t)
 
-    # 2순위 전체 후보 fallback
-    vals=[]
+            for v in vals:
+                candidates.append((v, 0.6))
 
-    for t in lines:
+    if candidates:
+        # 가장 큰 값이 아니라 "중간~큰 값" 선택 (오류 방지)
+        values = sorted([v for v, _ in candidates])
 
-        nums=re.findall(
-            r'\d+',
-            t.replace(",","")
-        )
+        # 상위 30% 중 최소값
+        cut = int(len(values) * 0.7)
+        return values[cut], 0.9
 
-        for n in nums:
-
-            v=int(n)
-
-            if 100<=v<=99999:
-                vals.append(v)
-
-
-    if vals:
-        return max(vals),0.85
-
-
-    # 반드시 리턴
-    return 0,0.30
+    return 0, 0.3
 
 
+# =========================
+# 통화
+# =========================
+def extract_currency(lines, scores):
+    return "JPY", 0.95
 
-def extract_currency(lines,scores):
-    return "JPY",0.95
 
-
-
+# =========================
+# 아이템 수량
+# =========================
 def extract_item_count(lines):
 
     for t in lines:
-
-        m=re.search(
-            r'(\d+)点',
-            t
-        )
-
+        m = re.search(r'(\d+)\s*点', t)
         if m:
-            return int(
-                m.group(1)
-            )
+            return int(m.group(1))
+
+    # fallback
+    for t in lines:
+        nums = re.findall(r'\d+', t)
+        for n in nums:
+            v = int(n)
+            if 1 <= v <= 50:
+                return v
 
     return 0

@@ -26,8 +26,8 @@ public class ReceiptListController {
             @RequestParam(required=false) String storeName,
             HttpSession session
     ){
-
         Long userId = sessionUserService.getLoginUser(session).getUserId();
+
         return receiptListService.getReceiptList(userId, page, size, year, month, category, storeName);
     }
 }

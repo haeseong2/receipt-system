@@ -15,4 +15,6 @@ public class ReceiptListResponseDto {
     private Long totalAmount;
     private String category;
     private String imageUrl;
+    private String itemCount;
+    private String currency;
 }

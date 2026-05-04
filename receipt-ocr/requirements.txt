@@ -1,7 +1,19 @@
+# FastAPI
 fastapi
 uvicorn
-opencv-python
-numpy
-paddlepaddle
-paddleocr
+
+# HTTP / 파일 업로드
 python-multipart
+requests
+
+# 이미지 처리 (필수)
+numpy==1.23.5
+pillow
+opencv-python-headless==4.8.0.74
+
+# OCR (PaddleOCR)
+paddlepaddle==2.6.2
+paddleocr==2.7.3
+
+# 로그 (선택)
+loguru

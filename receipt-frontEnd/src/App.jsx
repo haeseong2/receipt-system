@@ -16,7 +16,6 @@ function App() {
         <Route path="/dashboard"      element={<PrivateRoute><DashboardPage/>      </PrivateRoute>}/>
         <Route path="/receiptUpload"  element={<PrivateRoute><ReceiptUploadPage/>  </PrivateRoute>}/>
         <Route path="/receiptList"    element={<PrivateRoute><ReceiptListPage />   </PrivateRoute>}/>
-        
         </Route>
       </Routes>
     </BrowserRouter>

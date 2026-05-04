@@ -94,7 +94,7 @@ function ReceiptUploadPage(){
         file:file
       });
     }catch(error){
-      setError("OCR접속 실패 관리자에게 문의하세요");
+      setError("OCRへの接続に失敗しました。管理者にお問い合わせください。");
     }finally{
       setLoading(false);
     }
@@ -102,36 +102,36 @@ function ReceiptUploadPage(){
 
   const validateForm = ()=>{
     if(!form.storeName.trim()){
-      alert("가맹점명을 입력하세요");
+      alert("店舗名を入力してください");
       storeRef.current.focus();
       return false;
     }
 
     if(!form.transactionDate){
-      alert("거래일시 입력하세요");
+      alert("取引日を入力してください");
       dateRef.current.focus();
       return false;
     }
 
     if(!form.totalAmount || Number(form.totalAmount)<=0){
-      alert("총 금액 확인하세요");
+      alert("合計金額を確認してください");
       amountRef.current.focus();
       return false;
     }
 
     if(!form.itemCount || Number(form.itemCount)<=0){
-      alert("총 수량 확인하세요");
+      alert("数量を確認してください");
       return false;
     }
 
     if(!form.category){
-      alert("카테고리 선택하세요");
+      alert("カテゴリを選択してください");
       categoryRef.current.focus();
       return false;
     }
 
     if(!form.file){
-      alert("영수증 파일 업로드 필요");
+      alert("領収書ファイルをアップロードしてください");
       return false;
     }
     return true;
@@ -163,7 +163,7 @@ function ReceiptUploadPage(){
     <div className="upload-page">
       {loading && <Loading/>}
       {error && (<LoadingError message={error} onClose={() => setError(null)}/>)}
-      {confirm && (<ConfirmModal message="저장하시겠습니까?" 
+      {confirm && (<ConfirmModal message="保存しますか？" 
       onYes={async () => {
         setConfirm(false);
           try {
@@ -197,13 +197,13 @@ function ReceiptUploadPage(){
                 }
                 setResult({
                   type: "success",
-                  message: "서버 등록 성공"
+                  message: "登録が完了しました。"
                 });
 
               } catch (error) {
                 setResult({
                   type: "error",
-                  message: error.response?.data?.message || "서버 저장 실패 관리자에게 문의하세요"
+                  message: error.response?.data?.message || "保存に失敗しました。管理者にお問い合わせください。"
                 });
               } finally {
                 setLoading(false);
@@ -212,10 +212,9 @@ function ReceiptUploadPage(){
       onNo={() => setConfirm(false)}/>
     )}
     {result && (<ResultModal type={result.type} message={result.message} onClose={() => setResult(null)}/>)}
-
       <div className="main">
         <h2 className="title">
-          영수증 등록
+          領収書登録
         </h2>
 
         <div className="content-wrap">
@@ -223,7 +222,7 @@ function ReceiptUploadPage(){
             <div className="inner">
               <div className="left-card">
                 <p className="section-title">
-                  영수증 이미지
+                  領収書画像
                 </p>
 
                 <div className="img-row">
@@ -240,10 +239,10 @@ function ReceiptUploadPage(){
                         </svg>
                       </div>
                       <p className="upload-title">
-                        이미지 업로드
+                        画像アップロード
                       </p>
                       <span className="upload-desc">
-                        JPG, PNG (최대 10MB)
+                        JPG, PNG (最大 10MB)
                       </span>
                     </div>
                     <input type="file" ref={fileRef} onChange={handleImage}/>
@@ -257,7 +256,7 @@ function ReceiptUploadPage(){
                           alt="preview"
                         />
                       : <p className="preview-text">
-                          미리보기
+                          プレビュー
                         </p>
                     }
                   </div>
@@ -266,17 +265,17 @@ function ReceiptUploadPage(){
 
               <div className="right-card">
                 <div className="form-group">
-                  <label>가맹점명</label>
+                  <label>店舗名</label>
                   <input ref={storeRef} name="storeName" value={form.storeName} onChange={handleChange}/>
                 </div>
 
                 <div className="form-group">
-                  <label>거래일시</label>
+                  <label>取引日</label>
                   <input ref={dateRef} type="date" name="transactionDate" value={form.transactionDate} onChange={handleChange}/>
                 </div>
 
                 <div className="form-group">
-                  <label>총 금액</label>
+                  <label>合計金額</label>
                   <div className="money-wrap">
                     <input ref={amountRef} name="totalAmount" value={formatNumber( form.totalAmount )}
                       onChange={(e)=>setForm(prev=>({...prev,
@@ -288,39 +287,38 @@ function ReceiptUploadPage(){
                 </div>
 
                 <div className="form-group">
-                  <label>총 수량</label>
+                  <label>数量</label>
                   <input name="itemCount" value={form.itemCount} readOnly/>
                 </div>
 
                 <div className="form-group">
-                  <label>카테고리</label>
+                  <label>カテゴリ</label>
                   <select ref={categoryRef} name="category" value={form.category} onChange={handleChange}>
                     <option value="">
-                      선택하세요
+                      選択してください
                     </option>
-                    <option value="식비">
-                      식비
+                    <option value="食費">
+                      食費
                     </option>
-                    <option value="교통비">
-                      교통비
+                    <option value="交通費">
+                      交通費
                     </option>
-                    <option value="쇼핑">
-                      쇼핑
+                    <option value="ショッピング">
+                      ショッピング
                     </option>
-                    <option value="공과금">
-                      공과금
+                    <option value="光熱費">
+                      光熱費
                     </option>
-                    <option value="기타">
-                      기타
+                    <option value="その他">
+                      その他
                     </option>
                   </select>
                 </div>
 
                 <div className="ocr-badge">
-                  정확도{Math.round(form.ocrConfidence *100)}%
+                  精度{Math.round(form.ocrConfidence *100)}%
                   <span className="ocr-warning">
-                    ※ OCR 결과는
-                    정확하지 않을 수 있습니다
+                    OCRの結果は正確でない場合があります。
                   </span>
                 </div>
 
@@ -331,7 +329,7 @@ function ReceiptUploadPage(){
         <div className="bottom-row">
           {/* 저장 항목 */}
           <div className={`detail-toggle ${showItems ? "active" : ""}`} onClick={() => setShowItems(!showItems)}>
-            저장 항목 {showItems ? "접기 ▲" : "보기 ▼"}
+            保存項目 {showItems ? "閉じる ▲" : "表示 ▼"}
           </div>
 
           {showItems && savedList.length > 0 && (
@@ -339,11 +337,11 @@ function ReceiptUploadPage(){
 
             {/* 헤더 */}
             <div className="item-header">
-              <span>가맹점명</span>
-              <span>거래일시</span>
-              <span>총 금액</span>
-              <span>총 수량</span>
-              <span>카테고리</span>
+              <span>店舗名</span>
+              <span>取引日</span>
+              <span>合計金額</span>
+              <span>数量</span>
+              <span>カテゴリ</span>
             </div>
 
             {/* 데이터 */}
@@ -364,11 +362,11 @@ function ReceiptUploadPage(){
           
           <div className="bottom-btns">
             <button className="reset" onClick={handleReset}>
-              초기화
+              リセット
             </button>
 
             <button className="save" onClick={handleSave}>
-              저장하기
+              保存
             </button>
           </div>
         </div>

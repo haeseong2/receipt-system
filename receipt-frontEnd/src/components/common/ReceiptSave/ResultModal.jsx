@@ -11,7 +11,7 @@ export default function ResultModal({ type, message, onClose }) {
           {message}
         </p>
 
-        <button className="btn-ok" onClick={onClose}>확인</button>
+        <button className="btn-ok" onClick={onClose}>確認</button>
         
       </div>
 

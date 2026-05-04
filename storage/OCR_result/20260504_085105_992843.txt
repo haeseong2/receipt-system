@@ -1,0 +1,17 @@
+storeName:
+ト-ル.-ち
+
+transactionDate:
+
+
+totalAmount:
+1130
+
+currency:
+JPY
+
+itemCount:
+2
+
+ocrConfidence:
+0.81

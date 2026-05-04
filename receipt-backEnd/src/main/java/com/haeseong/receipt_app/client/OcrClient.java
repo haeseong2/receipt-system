@@ -16,7 +16,11 @@ public class OcrClient {
 
     public String requestOcr(File file) {
         try {
-            String url = "http://127.0.0.1:8000/ocr";
+            // 운영
+            String url = "http://ocr:8000/ocr";
+
+            // 개발
+            //String url = "http://127.0.0.1:8000/ocr";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);

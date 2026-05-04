@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../api/authApi";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import ResultModal from "../../components/common/Login/ResultModal";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -10,10 +11,10 @@ function LoginPage() {
     loginId:"",
     password:""
   });
-
-  const [loading,setLoading]=useState(false);
-  const [error,setError]=useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [userName, setUserName] = useState("");
   const onChange=(e)=>{
     setForm({
       ...form,
@@ -27,24 +28,36 @@ function LoginPage() {
     setError("");
 
     if(!form.loginId || !form.password){
-      setError("아이디와 비밀번호 입력");
+      setError("アドレスとパワードを入力してください");
       return;
     }
 
-    try{
-      setLoading(true);
-      const result = await login(form);
-      console.log(result);
-      
-      sessionStorage.setItem("LOGIN_USER", result.userName);
+    setLoading(true);
 
-      navigate("/dashboard");
-    }catch(err){
+    try {
+      const result = await login(form);
+      console.log("result:", result);
+
+      if (result.result === "SUCCESS") {
+        sessionStorage.setItem("LOGIN_USER", result.userName);
+
+        setUserName(result.userName);
+        setSuccess(true);
+
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 800);
+
+      } else {
+        setError("ログインに失敗しました。管理者にお問い合わせください。");
+      }
+
+    } catch (err) {
       console.error(err);
-      setError("로그인 실패");
+      setError("ログインに失敗しました。管理者にお問い合わせください。");
     }finally{
-      setLoading(false);
-    }
+          setLoading(false);
+        }
   };
 
   return (
@@ -135,11 +148,18 @@ function LoginPage() {
               <input type="password"name="password"value={form.password}onChange={onChange}placeholder="Password"/>
             </div>
 
-            {error &&
-              <p className="error-msg">
-                {error}
-              </p>
-            }
+            {success && (<ResultModal type="success"
+                message={`${userName}さん、ようこそ`}
+                onClose={() => setSuccess(false)}
+              />
+            )}
+
+            {error && (<ResultModal type="error"
+                message={error}
+                onClose={() => setError("")}
+              />
+            )}
+
             <button className="login-btn" type="submit" disabled={loading}>
               {
                 loading
@@ -148,7 +168,6 @@ function LoginPage() {
               }
             </button>
           </form>
-
         </div>
         <div className="card-base"></div>
       </div>

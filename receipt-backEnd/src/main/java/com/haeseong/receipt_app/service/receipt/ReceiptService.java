@@ -41,7 +41,8 @@ public class ReceiptService {
             String timeStamp = now.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String fileName = timeStamp + "_" + request.getFile().getOriginalFilename();
 
-            String uploadDir = "C:/receipt/receipt-backEnd/storage/result/" + dateDir + "/";
+            // String uploadDir = "C:/receipt/receipt-backEnd/storage/result/" + dateDir + "/"; 개발
+            String uploadDir = "/app/storage/result/" + dateDir + "/";
 
             File dir = new File(uploadDir);
             if (!dir.exists()) dir.mkdirs();

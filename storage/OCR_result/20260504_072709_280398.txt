@@ -1,0 +1,17 @@
+storeName:
+印は野流現率動避用蒔品てす
+
+transactionDate:
+
+
+totalAmount:
+2022
+
+currency:
+JPY
+
+itemCount:
+3
+
+ocrConfidence:
+0.81

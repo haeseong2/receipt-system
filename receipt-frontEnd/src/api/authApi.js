@@ -3,7 +3,7 @@ import axios from "axios";
 export const login = async (data) => {
 
   const res = await fetch(
-    "http://localhost:8080/api/login",
+    "/api/login",
     {
       method:"POST",
       headers:{

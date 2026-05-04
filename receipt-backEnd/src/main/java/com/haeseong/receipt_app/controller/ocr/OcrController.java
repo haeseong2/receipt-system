@@ -29,7 +29,11 @@ public class OcrController {
             String time = now.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
 
             // 저장 경로 생성
-            String baseDir = "C:/receipt/receipt-backEnd/storage/ocr/" + date + "/";
+            // 개발
+            //String baseDir = "C:/receipt/receipt-backEnd/storage/ocr/" + date + "/";
+
+            // 운영
+            String baseDir = "/app/storage/ocr/" + date + "/";
             File dir = new File(baseDir);
             if (!dir.exists()) dir.mkdirs();
 

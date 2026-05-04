@@ -18,7 +18,11 @@ public class LlmClient {
 
     public String requestLlm(String ocrText) {
         try {
-            String url = "http://localhost:11434/api/generate";
+            // 운영
+            String url = "http://ollama:11434/api/generate";
+
+            // 개발
+            //String url = "http://localhost:11434/api/generate";
             String prompt = """
 너는 영수증 데이터를 JSON으로 변환하는 시스템이다.
 
@@ -44,13 +48,16 @@ public class LlmClient {
 5. 의미 없는 데이터 제거
 6. 값 없으면 null
 7. JSON 외 출력 금지
-
+반드시 완전한 JSON 하나만 출력하고 끝내라.
+중간에 끊지 마라.
 [입력 데이터]
 """ + ocrText;
             Map<String, Object> body = new HashMap<>();
-            body.put("model", "mistral");
+            body.put("model", "llama3");
             body.put("prompt", prompt);
             body.put("stream", false);
+            body.put("format", "json");
+            body.put("options", Map.of("temperature", 0));
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -59,36 +66,30 @@ public class LlmClient {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
             JsonNode root = mapper.readTree(response.getBody());
-            String raw = root.get("response").asText();
+            String raw = root.get("response") != null
+                    ? root.get("response").asText("")
+                    : root.toString();
 
-            // 디버깅 로그
-            System.out.println("===== LLM RAW =====");
-            System.out.println(raw);
-            System.out.println("===================");
+            if (raw == null || raw.isBlank()) {
+                throw new RuntimeException("LLM 응답 없음");
+            }
 
-            // 정제 시작
-            String result = raw
-                    .replaceAll("```json", "")
-                    .replaceAll("```", "")
-                    .replaceAll("//.*", "")              // 한줄 주석 제거
-                    .replaceAll("/\\*.*?\\*/", "")       // 블록 주석 제거
+            raw = raw.replace("```json", "")
+                    .replace("```", "")
                     .trim();
 
-            // JSON 부분만 추출
-            int start = result.indexOf("{");
-            int end = result.lastIndexOf("}");
+            int start = raw.indexOf("{");
+            int end = raw.lastIndexOf("}");
 
-            if (start == -1 || end == -1) {
+            if (start == -1 || end == -1 || end <= start) {
+                System.out.println("RAW 문제 데이터: " + raw);
                 throw new RuntimeException("JSON 없음");
             }
 
-            result = result.substring(start, end + 1);
+            String result = raw.substring(start, end + 1);
 
-            // JSON 검증
             mapper.readTree(result);
-
             return result;
-
         } catch (Exception e) {
             e.printStackTrace();
             return """

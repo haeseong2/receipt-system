@@ -1,7 +1,7 @@
 import "./common.css";
 
 export default function ConfirmModal({
-  message = "저장하시겠습니까?",
+  message = "保存しますか?",
   onYes,
   onNo
 }) {
@@ -12,10 +12,10 @@ export default function ConfirmModal({
         <p className="modal-text">{message}</p>
         <div className="modal-btns">
           <button className="btn-yes" onClick={onYes}>
-            예
+            はい
           </button>
           <button className="btn-no" onClick={onNo}>
-            아니오
+            いいえ
           </button>
         </div>
       </div>

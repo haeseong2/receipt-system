@@ -1,0 +1,47 @@
+/* =========================
+   FULL SCREEN BASE
+========================= */
+.full-screen {
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999999;
+}
+
+.full-screen.success {
+  background: #2563eb;
+  color: white;
+}
+
+.full-screen.error {
+  background: #111;
+  color: #ef4444;
+}
+
+/* =========================
+   CENTER BOX
+========================= */
+.center-box {
+  text-align: center;
+  animation: pop 0.25s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

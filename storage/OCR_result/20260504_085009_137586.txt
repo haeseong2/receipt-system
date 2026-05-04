@@ -1,0 +1,17 @@
+storeName:
+K-BOOKS
+
+transactionDate:
+
+
+totalAmount:
+0
+
+currency:
+JPY
+
+itemCount:
+0
+
+ocrConfidence:
+0.66

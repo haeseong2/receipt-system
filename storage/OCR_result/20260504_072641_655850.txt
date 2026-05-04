@@ -1,0 +1,17 @@
+storeName:
+ヨークペニマル
+
+transactionDate:
+2026-04-12
+
+totalAmount:
+42157
+
+currency:
+JPY
+
+itemCount:
+13
+
+ocrConfidence:
+0.93

@@ -8,7 +8,8 @@ spring:
       max-request-size: 10MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/receipt_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Tokyo
+#   url: jdbc:mysql://localhost:3306/receipt_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Tokyo  개발
+    url: jdbc:mysql://mysql:3306/receipt_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Tokyo
     username: root
     password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,3 +18,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: prometheus

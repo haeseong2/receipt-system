@@ -13,11 +13,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
-                .allowedOrigins(
-                        "http://localhost:3000",
-                        "http://localhost:5173"
-                )
+                .allowedOriginPatterns("*")
                 .allowedMethods("*")
+                .allowedHeaders("*")
                 .allowCredentials(true);
     }
 
@@ -29,6 +27,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/images/**",
                         "/api/login",
                         "/api/logout",
+                        "/api/receipts",
+                        "/api/receipts/**",
+                        "/api/dashboard",
+                        "/api/excel/**",
                         "/error"
                 );
     }
@@ -36,6 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:///C:/receipt/receipt-backEnd/storage/result/");
+                .addResourceLocations("file:/app/storage/result/");
+                // .addResourceLocations("file:///C:/receipt/receipt-backEnd/storage/result/"); 개발
     }
 }

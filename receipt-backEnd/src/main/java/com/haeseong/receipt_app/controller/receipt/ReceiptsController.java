@@ -6,6 +6,7 @@ import com.haeseong.receipt_app.service.utile.SessionUserService;
 
 import jakarta.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,15 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class ReceiptsController {
+
     private final ReceiptService receiptService;
     private final SessionUserService sessionUserService;
-
-    public ReceiptsController(ReceiptService receiptService, SessionUserService sessionUserService){
-        this.receiptService = receiptService;
-        this.sessionUserService = sessionUserService;
-    }
 
     @PostMapping(value="/receipts",consumes="multipart/form-data")
     public ResponseEntity<Long> saveReceipt(@ModelAttribute ReceiptSaveRequest request, HttpSession session) throws IOException {

@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./receipt-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    build:
+      context: ./receipt-backEnd
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./storage:/app/storage
+    depends_on:
+      - mysql
+      - ocr
+      - ollama
+    restart: always
+
+  ocr:
+    build:
+      context: ./receipt-ocr
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./storage:/app/storage
+    restart: always
+    environment:
+      - FLAGS_use_mkldnn=false
+      - PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=true
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: receipt_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always  
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - backend
+    restart: always
+    
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    restart: always
+
+volumes:
+  mysql_data:
