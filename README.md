@@ -21,19 +21,19 @@ GPT / LLaMAを用いた自然言語解析およびAgent機能の追加　　
    
 ---
 
-## 🛠 Tech Stack
-
-Frontend: React (Vite 5.x)
-Backend: Spring Boot (Java 17 / JVM 17)
-OCR Service: PaddleOCR (Python 3.10)
-AI Model: Ollama (Llama3)
-Database: MySQL 8.0
-
-Infrastructure: Docker / Docker Compose
-Monitoring: Prometheus, Grafana
-Tunneling: ngrok (v3.x)
-STT: Whisper (planned)
-
+## 🛠 Tech Stack    
+   
+Frontend: React (Vite 5.x)      
+Backend: Spring Boot (Java 17 / JVM 17)        
+OCR Service: PaddleOCR (Python 3.10)      
+AI Model: Ollama (Llama3)       
+Database: MySQL 8.0     
+     
+Infrastructure: Docker / Docker Compose         
+Monitoring: Prometheus, Grafana      
+Tunneling: ngrok (v3.x)     
+STT: Whisper (planned)      
+      
 ---
 
 ## ⚙️ Architecture
