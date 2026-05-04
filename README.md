@@ -31,6 +31,7 @@ Database: MySQL
 
 Infrastructure: Docker / Docker Compose  
 Monitoring: Prometheus, Grafana  
+Tunneling: ngrok  
 STT: Whisper (planned)
 
 ---
@@ -78,7 +79,40 @@ All services are containerized:
 - grafana
 
 ---
+
+## 📦 Deployment Commands (DevOps Guide)    
+Deployment Commands (DevOps Guide)    
+🐳Docker    
+Start    
+docker compose up -d --build  
+🛑 Stop   
+docker compose down  
+🔁 Rebuild   
+docker compose up -d --build    
+    
+📊 log   
+Full logs:    
+docker compose logs -f     
+Backend:     
+docker logs -f receipt-backend-1     
+Frontend:    
+docker logs -f receipt-frontend-1    
+OCR:    
+docker logs -f receipt-ocr-1    
+Ollama:      
+docker logs -f receipt-ollama-1       
   
+📡 GitHub        
+git add .       
+git commit -m "final"    
+git push origin main   
+       
+🌐 ngrok     
+ngrok: exposes frontend to public internet      
+ngrok http 3000    
+   
+---    
+
 ## 📌 まとめ
 
 OCRとLLMを組み合わせることで、  
