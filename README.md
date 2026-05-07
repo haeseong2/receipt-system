@@ -11,6 +11,11 @@
 正確なデータ化が難しいため、本プロジェクトでは   
 **OCR + LLM を組み合わせることで精度向上を実現**しています。
 
+・ポートフォリオ
+https://smlnk124.tistory.com/m/240
+・紹介動画
+https://www.youtube.com/watch?v=tDMR8jgiNww
+
 ---
 
 ## 🧠 追加導入・開発予定　　
